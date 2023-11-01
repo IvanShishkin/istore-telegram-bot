@@ -1,0 +1,73 @@
+<?php
+declare(strict_types=1);
+
+namespace App\Domain\User\Services;
+
+use App\Domain\User\Dto\RegistrationDto;
+use App\Domain\User\Dto\UserDto;
+use App\Domain\User\Exception\RegistrationConfirmException;
+use App\Domain\User\Exception\UserNotFoundException;
+use App\Domain\User\Models\User;
+use Illuminate\Support\Facades\Auth;
+
+final class UserService
+{
+    /**
+     * @throws UserNotFoundException
+     */
+    public function authByExternalId(mixed $externalId): ?UserDto
+    {
+        $user = User::where([
+            'external_id' => $externalId,
+            'active' => true
+        ])->first();
+
+        if (!$user) {
+            throw new UserNotFoundException('Данный пользователь не зарегистрирован');
+        }
+
+        return $this->login($user);
+    }
+
+    protected function login(User $user): ?UserDto
+    {
+        Auth::login($user);
+
+        return $this->getAuthUser();
+    }
+
+    public function getAuthUser(): ?UserDto
+    {
+        return Auth::user()?->dto();
+    }
+
+    public function register(RegistrationDto $dto): void
+    {
+        $fields = $dto->toArray();
+        $fields['password'] = \Hash::make(\Str::password(14));
+        $fields['confirm_token'] = \Str::random(8);
+
+        User::create($fields);
+    }
+
+    /**
+     * @throws RegistrationConfirmException
+     */
+    public function registrationConfirmation(string $confirmToken, int $externalId): ?UserDto
+    {
+        $user = User::where(['confirm_token' => $confirmToken, 'active' => false])->first();
+
+        if (!$user) {
+            throw new RegistrationConfirmException('Ошибка подтверждения регистрации пользователя');
+        }
+
+        $user->fill([
+            'active' => true,
+            'external_id' => $externalId
+        ]);
+
+        $user->save();
+
+        return $this->login($user);
+    }
+}
