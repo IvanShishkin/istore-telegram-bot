@@ -2,6 +2,7 @@
 
 namespace App\Telegram;
 
+use App\Telegram\Extends\Test;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use SergiX44\Nutgram\Nutgram;

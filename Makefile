@@ -25,4 +25,4 @@ rollback:
 	vendor/bin/sail artisan migrate:rollback
 
 test:
-	vendor/bin/sail artisan test --coverage-text --colors=never
+	vendor/bin/sail artisan test --coverage-text

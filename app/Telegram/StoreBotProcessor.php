@@ -7,17 +7,20 @@ use App\Telegram\Handlers\CancelHandler;
 use App\Telegram\Handlers\GiveCoinHandler;
 use App\Telegram\Handlers\MenuHandler;
 use App\Telegram\Handlers\RegistrationConfirmHandler;
+use App\Telegram\Handlers\StartHandler;
 use App\Telegram\Middlewares\AuthenticationMiddleware;
 
-final class StoreBotBotProcessor extends AbstractBotProcessor
+final class StoreBotProcessor extends AbstractBotProcessor
 {
     protected function defineHandlers()
     {
         $this->bot->middleware(AuthenticationMiddleware::class);
+
         $this->bot->onCommand('menu', MenuHandler::class);
+        $this->bot->onCommand('start', StartHandler::class)->skipGlobalMiddlewares();
         $this->bot->onCommand('start reg-{value}', RegistrationConfirmHandler::class)->skipGlobalMiddlewares();
         $this->bot->onCommand('start give-{value}', GiveCoinHandler::class);
-        $this->bot->onCallbackQueryData('buy {param}', BuyHandler::class);
-        $this->bot->onCallbackQueryData('cancel {param}', CancelHandler::class);
+        //$this->bot->onCallbackQueryData('buy {param}', BuyHandler::class);
+        //$this->bot->onCallbackQueryData('cancel {param}', CancelHandler::class);
     }
 }

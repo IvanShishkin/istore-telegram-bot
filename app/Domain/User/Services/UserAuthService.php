@@ -5,12 +5,14 @@ namespace App\Domain\User\Services;
 
 use App\Domain\User\Dto\RegistrationDto;
 use App\Domain\User\Dto\UserDto;
+use App\Domain\User\Exception\AlreadyExistsException;
 use App\Domain\User\Exception\RegistrationConfirmException;
 use App\Domain\User\Exception\UserNotFoundException;
 use App\Domain\User\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Spatie\LaravelData\Exceptions\InvalidDataClass;
 
-final class UserService
+final class UserAuthService
 {
     /**
      * @throws UserNotFoundException
@@ -29,6 +31,10 @@ final class UserService
         return $this->login($user);
     }
 
+    /**
+     * @param User $user
+     * @return UserDto|null
+     */
     protected function login(User $user): ?UserDto
     {
         Auth::login($user);
@@ -36,24 +42,45 @@ final class UserService
         return $this->getAuthUser();
     }
 
+    /**
+     * @return UserDto|null
+     * @throws InvalidDataClass
+     */
     public function getAuthUser(): ?UserDto
     {
         return Auth::user()?->dto();
     }
 
-    public function register(RegistrationDto $dto): void
+    /**
+     * @param string $email
+     * @return bool
+     */
+    public function checkExistsByEmail(string $email): bool
     {
+        return User::where(['email' => $email])->exists();
+    }
+
+    /**
+     * @throws InvalidDataClass
+     * @throws AlreadyExistsException
+     */
+    public function register(RegistrationDto $dto): UserDto
+    {
+        if ($this->checkExistsByEmail($dto->getEmail())) {
+            throw new AlreadyExistsException('Пользователь с таким email уже существует');
+        }
+
         $fields = $dto->toArray();
         $fields['password'] = \Hash::make(\Str::password(14));
         $fields['confirm_token'] = \Str::random(8);
 
-        User::create($fields);
+        return User::create($fields)->dto();
     }
 
     /**
      * @throws RegistrationConfirmException
      */
-    public function registrationConfirmation(string $confirmToken, int $externalId): ?UserDto
+    public function registrationConfirmation(string $confirmToken, ?int $externalId = null): ?UserDto
     {
         $user = User::where(['confirm_token' => $confirmToken, 'active' => false])->first();
 
