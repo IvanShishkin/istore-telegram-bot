@@ -63,6 +63,29 @@ Route::any('/cancelTransaction', function(
     $action->execute('9718780c-2834-4a3b-815c-4591db84d437');
 });
 
+Route::get('ff', function (\App\Domain\Products\ProductService $service) {
+    $service->reduceStock(2);
+});
+
+Route::get('createOrder', function (\App\Domain\Store\Actions\CreateOrderAction $service) {
+    $user = App::make(\App\Domain\User\Services\UserService::class);
+    $userDto = $user->byId(1);
+
+    $product = App::make(\App\Domain\Products\ProductService::class);
+    $productDto = $product->get(1);
+    //dd($userDto);
+    $service->execute(
+        $userDto,
+        $productDto
+    );
+
+});
+
+Route::get('changeStatus', function (\App\Domain\Store\Actions\CancelOrderAction $action) {
+    $action->execute(11);
+
+});
+
 Route::any('/w', function (\App\Domain\Transactions\Actions\ApplyTransactionAction $action,
 \App\Domain\Wallets\Actions\CreateStoreBalanceAction $balanceAction,
 \App\Domain\Wallets\Services\UserWalletService $walletService) {

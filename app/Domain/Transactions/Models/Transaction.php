@@ -29,6 +29,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $term_at
  * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereTermAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereValue($value)
+ * @property int $with_error
+ * @property string|null $error_detail
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereErrorDetail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereWithError($value)
  * @mixin \Eloquent
  */
 class Transaction extends Model
