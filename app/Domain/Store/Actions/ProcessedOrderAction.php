@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Store\Actions;
 
+use App\Domain\Store\Events\OrderProcessedEvent;
 use App\Domain\Store\Exceptions\ErrorOrderActionException;
 use App\Domain\Store\Services\OrderStatusService;
 use App\Domain\Transactions\Actions\ApplyTransactionAction;
@@ -28,12 +29,13 @@ final class ProcessedOrderAction
             $orderData = $this->orderStatusService->processed($orderId);
 
             $this->applyTransactionAction->execute($orderData->getTransactionId());
-            //todo event
+
             DB::commit();
+
+            OrderProcessedEvent::dispatch($orderData);
         } catch (\Throwable $e) {
             DB::rollBack();
             throw new ErrorOrderActionException("Ошибка выполнения " . __CLASS__ . ". Детально: {$e->getMessage()}");
-
         }
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Domain\Transactions\Actions;
 
 use App\Domain\Transactions\Dto\TransactionDto;
-use App\Domain\Transactions\TransactionService;
+use App\Domain\Transactions\Services\TransactionService;
 use App\Domain\Wallets\Exceptions\FailedSaveException;
 use App\Domain\Wallets\Exceptions\InitializationException;
 use App\Domain\Wallets\Exceptions\ReduceBalanceException;

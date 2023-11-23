@@ -2,6 +2,9 @@
 
 namespace App\Domain\Wallets\Models;
 
+use App\Domain\Wallets\WalletFactory;
+use Database\Factories\WalletUuidFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -20,10 +23,17 @@ use Illuminate\Database\Eloquent\Model;
  */
 class WalletUuid extends Model
 {
+    use HasFactory;
+
     protected $primaryKey = null;
     public $incrementing = false;
 
     protected $fillable = [
         'uuid',
     ];
+
+    protected static function newFactory(): WalletUuidFactory
+    {
+        return WalletUuidFactory::new();
+    }
 }

@@ -63,7 +63,7 @@ Route::any('/cancelTransaction', function(
     $action->execute('9718780c-2834-4a3b-815c-4591db84d437');
 });
 
-Route::get('ff', function (\App\Domain\Products\ProductService $service) {
+Route::get('ff', function (\App\Domain\Products\Services\ProductService $service) {
     $service->reduceStock(2);
 });
 
@@ -71,7 +71,7 @@ Route::get('createOrder', function (\App\Domain\Store\Actions\CreateOrderAction 
     $user = App::make(\App\Domain\User\Services\UserService::class);
     $userDto = $user->byId(1);
 
-    $product = App::make(\App\Domain\Products\ProductService::class);
+    $product = App::make(\App\Domain\Products\Services\ProductService::class);
     $productDto = $product->get(1);
     //dd($userDto);
     $service->execute(
@@ -82,7 +82,7 @@ Route::get('createOrder', function (\App\Domain\Store\Actions\CreateOrderAction 
 });
 
 Route::get('changeStatus', function (\App\Domain\Store\Actions\CancelOrderAction $action) {
-    $action->execute(11);
+    $action->execute(4);
 
 });
 

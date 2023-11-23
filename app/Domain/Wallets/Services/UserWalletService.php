@@ -4,10 +4,13 @@ declare(strict_types=1);
 namespace App\Domain\Wallets\Services;
 
 use App\Domain\Wallets\Dto\WalletDto;
+use App\Domain\Wallets\Exceptions\WalletAlreadyExistsException;
 use App\Domain\Wallets\Exceptions\WalletNotExistsException;
 use App\Domain\Wallets\Models\UserWalletModel;
+use App\Domain\Wallets\Models\WalletUuid;
 use App\Domain\Wallets\UserWallet;
 use Illuminate\Database\Eloquent\Model;
+use Ramsey\Uuid\Uuid;
 
 class UserWalletService
 {
@@ -37,6 +40,32 @@ class UserWalletService
         }
 
         return $this->makeDto($wallet);
+    }
+
+    /**
+     * @param int $userId
+     * @return WalletDto
+     * @throws WalletAlreadyExistsException
+     */
+    public function create(int $userId): WalletDto
+    {
+        $exists = UserWalletModel::where(['holder_id' => $userId])->exists();
+
+        if ($exists) {
+            throw new WalletAlreadyExistsException('Кошелек уже существует');
+        }
+
+        $uuid = Uuid::uuid4();
+
+        WalletUuid::create(['uuid' => $uuid]);
+
+        $model = UserWalletModel::create([
+            'holder_id' => $userId,
+            'number' => $uuid,
+            'balance' => 0
+        ]);
+
+        return $this->makeDto($model);
     }
 
     /**

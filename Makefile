@@ -21,6 +21,9 @@ install:
 migrate:
 	vendor/bin/sail artisan migrate
 
+migrate-test:
+	vendor/bin/sail artisan migrate --env=testing
+
 rollback:
 	vendor/bin/sail artisan migrate:rollback
 

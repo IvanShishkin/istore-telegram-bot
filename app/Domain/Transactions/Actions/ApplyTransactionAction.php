@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Transactions\Actions;
 
-use App\Domain\Transactions\TransactionService;
+use App\Domain\Transactions\Services\TransactionService;
 use App\Domain\Wallets\Interfaces\WalletInterface;
 use App\Domain\Wallets\Services\ChangeBalanceService;
 

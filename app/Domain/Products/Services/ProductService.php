@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Domain\Products;
+namespace App\Domain\Products\Services;
 
 use App\Domain\Products\Dto\ProductDto;
 use App\Domain\Products\Exceptions\ErrorStockChangeException;

@@ -47,6 +47,12 @@ services:
                 - '-p${DB_PASSWORD}'
             retries: 3
             timeout: 5s
+    mysql-autotest:
+        image: mariadb:10.8.2
+        env_file:
+            - .env.testing
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge

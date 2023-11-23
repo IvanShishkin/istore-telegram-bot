@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Store\Actions;
 
+use App\Domain\Store\Events\OrderInProcessedEvent;
 use App\Domain\Store\Exceptions\ErrorOrderActionException;
 use App\Domain\Store\Services\OrderStatusService;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +27,8 @@ final class InProcessingOrderAction
 
             //todo event
             DB::commit();
+
+            OrderInProcessedEvent::dispatch($orderData);
         } catch (\Throwable $e) {
             DB::rollBack();
             throw new ErrorOrderActionException("Ошибка выполнения " . __CLASS__ . ". Детально: {$e->getMessage()}");

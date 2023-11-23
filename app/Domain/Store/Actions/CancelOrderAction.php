@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Store\Actions;
 
+use App\Domain\Store\Events\OrderCancelledEvent;
 use App\Domain\Store\Exceptions\ErrorOrderActionException;
 use App\Domain\Store\Services\OrderStatusService;
 use App\Domain\Transactions\Actions\CancelTransactionAction;
@@ -29,8 +30,10 @@ final class CancelOrderAction
             $orderData = $this->orderStatusService->cancel($orderId);
 
             $this->cancelTransactionAction->execute($orderData->getTransactionId());
-            //todo event
+
             DB::commit();
+
+            OrderCancelledEvent::dispatch($orderData);
         } catch (\Throwable $e) {
             DB::rollBack();
 

@@ -3,6 +3,8 @@
 namespace App\Domain\Transactions\Models;
 
 use App\Domain\Transactions\Enums\TransactionStatusEnum;
+use Database\Factories\TransactionFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -37,6 +39,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Transaction extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'id',
         'status',
@@ -49,4 +53,9 @@ class Transaction extends Model
     protected $casts = [
         'status' => TransactionStatusEnum::class
     ];
+
+    protected static function newFactory(): TransactionFactory
+    {
+        return TransactionFactory::new();
+    }
 }

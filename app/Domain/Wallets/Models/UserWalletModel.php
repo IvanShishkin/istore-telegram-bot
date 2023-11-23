@@ -2,6 +2,7 @@
 
 namespace App\Domain\Wallets\Models;
 
+use Database\Factories\UserWalletFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -38,4 +39,9 @@ class UserWalletModel extends Model
         'balance',
         'number',
     ];
+
+    protected static function newFactory(): UserWalletFactory
+    {
+        return UserWalletFactory::new();
+    }
 }

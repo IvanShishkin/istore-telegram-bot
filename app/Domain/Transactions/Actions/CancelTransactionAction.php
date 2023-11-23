@@ -5,7 +5,7 @@ namespace App\Domain\Transactions\Actions;
 
 use App\Domain\Transactions\Exceptions\IncorrectStatusException;
 use App\Domain\Transactions\Exceptions\TransactionNotFoundException;
-use App\Domain\Transactions\TransactionService;
+use App\Domain\Transactions\Services\TransactionService;
 use App\Domain\Wallets\Exceptions\FailedSaveException;
 use App\Domain\Wallets\Exceptions\InitializationException;
 use App\Domain\Wallets\Services\ChangeBalanceService;

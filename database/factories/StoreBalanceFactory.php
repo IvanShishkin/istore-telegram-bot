@@ -12,7 +12,8 @@ class StoreBalanceFactory extends Factory
     public function definition(): array
     {
         return [
-            'balance' => $this->faker->randomNumber(),
+            'balance' => 0,
+            'number' => $this->faker->uuid()
         ];
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Domain\Store\Actions;
 
 use App\Domain\Products\Dto\ProductDto;
+use App\Domain\Store\Events\OrderCreatedEvent;
 use App\Domain\Store\Exceptions\ErrorCreateOrderException;
 use App\Domain\Store\Exceptions\ErrorOrderActionException;
 use App\Domain\Store\Services\OrderService;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 
 final class CreateOrderAction
 {
+    protected OrderService $test;
     public function __construct(
         protected StoreWalletService $storeWalletService,
         protected UserWalletService $userWalletService,
@@ -43,11 +45,15 @@ final class CreateOrderAction
                     from: $userWallet,
                     value: $productDto->price,
                     to: $storeWallet
-                ));
+                )
+            );
 
-            $this->orderService->create($userDto, $productDto, $transactionId);
+            $orderDto = $this->orderService->create($userDto, $productDto, $transactionId);
 
             DB::commit();
+
+            OrderCreatedEvent::dispatch($orderDto);
+
         } catch (\Throwable $e) {
             DB::rollBack();
 

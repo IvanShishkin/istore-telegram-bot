@@ -3,6 +3,9 @@
 namespace App\Domain\Wallets\Models;
 
 use App\Domain\Wallets\Enums\WalletLogOperationEnum;
+use App\Domain\Wallets\WalletFactory;
+use Database\Factories\WalletLogFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -25,6 +28,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class WalletLog extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'number',
         'operation',
@@ -34,4 +39,9 @@ class WalletLog extends Model
     protected $casts = [
         'operation' => WalletLogOperationEnum::class
     ];
+
+    protected static function newFactory(): WalletLogFactory
+    {
+        return WalletLogFactory::new();
+    }
 }

@@ -5,6 +5,8 @@ namespace App\Domain\Transactions\Models;
 use App\Domain\Transactions\Enums\TransactionDirectionEnum;
 use App\Domain\Transactions\Enums\TransactionStatusEnum;
 use App\Domain\Wallets\Enums\WalletTypesEnum;
+use Database\Factories\TransactionFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -31,6 +33,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class TransactionItem extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'transaction_id',
         'wallet_number',
@@ -42,4 +46,9 @@ class TransactionItem extends Model
         'direction' => TransactionDirectionEnum::class,
         'type' => WalletTypesEnum::class
     ];
+
+    protected static function newFactory(): TransactionFactory
+    {
+        return TransactionFactory::new();
+    }
 }

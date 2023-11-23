@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Domain\Transactions;
+namespace App\Domain\Transactions\Services;
 
 use App\Domain\Transactions\Dto\TransactionDto;
 use App\Domain\Transactions\Enums\TransactionDirectionEnum;
