@@ -9,8 +9,8 @@ class UserDto extends Data
 {
     public function __construct(
         public readonly int $id,
-        public readonly string $first_name,
-        public readonly string $last_name,
+        public readonly string $name,
+        public readonly ?string $last_name,
         public readonly string $email,
         public readonly bool $active,
         public readonly ?string $confirm_token,
@@ -44,9 +44,9 @@ class UserDto extends Data
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLastName(): string
+    public function getLastName(): ?string
     {
         return $this->last_name;
     }
@@ -54,9 +54,9 @@ class UserDto extends Data
     /**
      * @return string
      */
-    public function getFirstName(): string
+    public function getName(): string
     {
-        return $this->first_name;
+        return $this->name;
     }
 
     /**

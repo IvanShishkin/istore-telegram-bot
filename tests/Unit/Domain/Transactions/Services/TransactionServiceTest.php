@@ -85,4 +85,9 @@ class TransactionServiceTest extends TestCase
         $this->assertEquals($storeWalletModel->number, $toTransactionState->wallet_number);
         $this->assertEquals(WalletTypesEnum::STORE, $toTransactionState->type);
     }
+
+    public function createWithOutTo()
+    {
+
+    }
 }

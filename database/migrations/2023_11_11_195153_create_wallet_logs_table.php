@@ -8,6 +8,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('wallet_logs', function (Blueprint $table) {
+            $table->id();
             $table->uuid('number');
             $table->string('operation');
             $table->bigInteger('value');

@@ -2,6 +2,7 @@
 
 namespace App\Domain\Wallets\Models;
 
+use App\Domain\User\Models\User;
 use Database\Factories\UserWalletFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -43,5 +44,15 @@ class UserWalletModel extends Model
     protected static function newFactory(): UserWalletFactory
     {
         return UserWalletFactory::new();
+    }
+
+    public function holder()
+    {
+        return $this->belongsTo(User::class, 'holder_id', 'id');
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(WalletLog::class, 'number', 'number');
     }
 }

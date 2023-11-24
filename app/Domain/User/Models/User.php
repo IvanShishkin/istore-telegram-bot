@@ -61,7 +61,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name',
+        'name',
         'last_name',
         'email',
         'password',
@@ -101,5 +101,10 @@ class User extends Authenticatable
     protected static function newFactory(): UserFactory
     {
         return UserFactory::new();
+    }
+
+    public function getFullNameAttribute(): string
+    {
+        return $this->last_name . ' ' . $this->name;
     }
 }

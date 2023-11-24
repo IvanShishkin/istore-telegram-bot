@@ -23,6 +23,9 @@ final class StoreWalletService
         return new StoreWallet($wallet->number);
     }
 
+    /**
+     * @throws WalletNotExistsException
+     */
     public function getWalletData(): WalletDto
     {
        $wallet = $this->find();
@@ -57,6 +60,12 @@ final class StoreWalletService
     {
         return WalletDto::from($model->toArray());
     }
+
+    public function exists(): bool
+    {
+        return StoreBalanceModel::take(1)->exists();
+    }
+
 
     /**
      * @throws WalletNotExistsException

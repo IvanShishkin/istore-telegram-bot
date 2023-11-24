@@ -2,7 +2,9 @@
 
 namespace App\Domain\Store\Models;
 
+use App\Domain\Products\Models\Product;
 use App\Domain\Store\Enums\OrderStatusEnum;
+use App\Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -44,4 +46,14 @@ class Order extends Model
     protected $casts = [
         'status' => OrderStatusEnum::class
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

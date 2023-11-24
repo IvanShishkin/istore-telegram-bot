@@ -81,6 +81,16 @@ Route::get('createOrder', function (\App\Domain\Store\Actions\CreateOrderAction 
 
 });
 
+Route::get('crateStoreWallet', function (\App\Domain\Wallets\Services\StoreWalletService $service) {
+    $service->create();
+});
+
+Route::get('crateUserWallet', function (\App\Domain\Wallets\Services\UserWalletService $service) {
+    $service->create(1);
+});
+
+
+
 Route::get('changeStatus', function (\App\Domain\Store\Actions\CancelOrderAction $action) {
     $action->execute(4);
 
