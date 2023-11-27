@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\WalletResource\RelationManagers;
 
+use App\Domain\Wallets\Enums\WalletLogOperationEnum;
 use App\Domain\Wallets\Models\WalletLog;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -34,8 +35,18 @@ class LogsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('logs')
             ->columns([
-                Tables\Columns\TextColumn::make('operation'),
-                Tables\Columns\TextColumn::make('value'),
+                Tables\Columns\TextColumn::make('created_at')->label('Дата операции'),
+                Tables\Columns\TextColumn::make('value')->label('Значение'),
+                Tables\Columns\IconColumn::make('operation')
+                    ->icon(fn (WalletLogOperationEnum $state): string => match ($state) {
+                        WalletLogOperationEnum::INCREASE => 'heroicon-s-arrow-small-up',
+                        WalletLogOperationEnum::REDUCE => 'heroicon-s-arrow-small-down',
+                    })
+                    ->color(fn (WalletLogOperationEnum $state): string => match ($state) {
+                        WalletLogOperationEnum::INCREASE => 'success',
+                        WalletLogOperationEnum::REDUCE => 'danger',
+                    })->label('Операция'),
+                Tables\Columns\TextColumn::make('comment')->label('Комментарий')
             ])
             ->filters([
                 //

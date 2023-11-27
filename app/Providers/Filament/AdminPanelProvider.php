@@ -38,6 +38,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->font('Montserrat')
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            ->brandLogo(asset('images/store-logo.svg'))
+            ->brandLogoHeight('3rem')
             ->widgets([
                 Widgets\AccountWidget::class,
                 StatsOverview::class

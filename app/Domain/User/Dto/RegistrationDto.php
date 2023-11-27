@@ -8,7 +8,7 @@ use Spatie\LaravelData\Data;
 class RegistrationDto extends Data
 {
     public function __construct(
-        public readonly string $first_name,
+        public readonly string $name,
         public readonly string $last_name,
         public readonly string $email,
         public readonly bool $active,
@@ -19,9 +19,9 @@ class RegistrationDto extends Data
     /**
      * @return string
      */
-    public function getFirstName(): string
+    public function getName(): string
     {
-        return $this->first_name;
+        return $this->name;
     }
 
     /**

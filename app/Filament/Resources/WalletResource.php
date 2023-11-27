@@ -10,6 +10,7 @@ use App\Filament\Resources\WalletResource\RelationManagers;
 use App\Models\Wallet;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -23,7 +24,7 @@ class WalletResource extends Resource
     protected static ?string $recordTitleAttribute = 'Кошельки';
     protected static ?string $pluralModelLabel = 'Кошельки';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-wallet';
 
     public static function form(Form $form): Form
     {
@@ -51,12 +52,30 @@ class WalletResource extends Resource
                     ->form([
                         Forms\Components\TextInput::make('balance_value')
                             ->label('Значение пополнения')
+                            ->numeric(true)
+                            ->required(),
+                        Forms\Components\Textarea::make('comment')
+                            ->label('Комментарий')
+
                     ])
-                ->action(function (array $data, UserWalletModel $record, ChangeBalanceService $balanceService): void {
-                    $incValue = $data['balance_value'];
-                    $userWallet = new UserWallet($record->number);
-                    $balanceService->increase($userWallet, $incValue);
-                })
+                    ->action(function (
+                        array $data,
+                        UserWalletModel $record,
+                        ChangeBalanceService $balanceService
+                    ): void {
+                        $incValue = $data['balance_value'];
+                        $comment = $data['comment'];
+                        try {
+                            $userWallet = new UserWallet($record->number);
+                            $balanceService->increase($userWallet, $incValue, $comment);
+                        } catch (\Exception $exception) {
+                            Notification::make('error_increase_balance')
+                                ->title('Ошибка')
+                                ->body($exception->getMessage())
+                                ->send();
+                        }
+
+                    })
             ])
             ->bulkActions([
 

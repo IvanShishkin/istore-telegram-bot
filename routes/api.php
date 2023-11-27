@@ -21,9 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::any('/telegram_webhook', \App\Http\Controllers\TelegramController::class);
 
 Route::any('/regUser', function (\App\Domain\User\Services\UserAuthService $service) {
-    $service->register(new \App\Domain\User\Dto\RegistrationDto(
-        first_name: 'Ivan', last_name: 'Sh' ,email: 'ivandenviii@gmail.com',active: false
-    ));
+    $service->registrationConfirmation('5HdQQpWz');
 });
 
 Route::any('/createTransaction', function(

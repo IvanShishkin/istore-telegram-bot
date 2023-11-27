@@ -4,6 +4,7 @@ namespace Domain\Wallets;
 
 use App\Domain\User\Models\User;
 use App\Domain\Wallets\Enums\WalletTypesEnum;
+use App\Domain\Wallets\Exceptions\IncreaseBalanceException;
 use App\Domain\Wallets\Exceptions\InitializationException;
 use App\Domain\Wallets\Exceptions\ReduceBalanceException;
 use App\Domain\Wallets\Models\UserWalletModel;
@@ -100,6 +101,18 @@ class UserWalletTest extends TestCase
         $walletData = UserWalletModel::where(['number' => $walletNumber])->first();
 
         $this->assertEquals($walletData->balance, 100);
+    }
+
+    public function testFailedIncrease()
+    {
+        $walletModel = $this->mockWallet();
+        $walletNumber = $walletModel->number;
+
+        $wallet = new UserWallet($walletNumber);
+
+        $this->expectException(IncreaseBalanceException::class);
+
+        $wallet->increase(-100);
     }
 
     public function testReduce()

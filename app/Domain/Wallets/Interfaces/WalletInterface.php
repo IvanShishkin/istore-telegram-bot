@@ -4,6 +4,7 @@ namespace App\Domain\Wallets\Interfaces;
 
 use App\Domain\Wallets\Enums\WalletTypesEnum;
 use App\Domain\Wallets\Exceptions\FailedSaveException;
+use App\Domain\Wallets\Exceptions\IncreaseBalanceException;
 use App\Domain\Wallets\Exceptions\InitializationException;
 use App\Domain\Wallets\Exceptions\ReduceBalanceException;
 
@@ -17,6 +18,7 @@ interface WalletInterface
      *
      * @throws InitializationException
      * @throws FailedSaveException
+     * @throws IncreaseBalanceException
      */
     public function increase(int $value): void;
 

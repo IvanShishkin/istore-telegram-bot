@@ -34,6 +34,7 @@ class WalletLog extends Model
         'number',
         'operation',
         'value',
+        'comment'
     ];
 
     protected $casts = [

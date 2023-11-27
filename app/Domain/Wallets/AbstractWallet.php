@@ -5,6 +5,7 @@ namespace App\Domain\Wallets;
 
 use App\Domain\Wallets\Enums\WalletTypesEnum;
 use App\Domain\Wallets\Exceptions\FailedSaveException;
+use App\Domain\Wallets\Exceptions\IncreaseBalanceException;
 use App\Domain\Wallets\Exceptions\InitializationException;
 use App\Domain\Wallets\Exceptions\ReduceBalanceException;
 use App\Domain\Wallets\Interfaces\WalletInterface;
@@ -21,9 +22,14 @@ abstract class AbstractWallet implements WalletInterface
      * @inheritDoc
      * @throws InitializationException
      * @throws FailedSaveException
+     * @throws IncreaseBalanceException
      */
     public function increase(int $value): void
     {
+        if ($value < 1) {
+            throw new IncreaseBalanceException('Не допустимое значение для увеличения баланса');
+        }
+
         $model = $this->init($this->getNumber());
         $model->balance += $value;
 

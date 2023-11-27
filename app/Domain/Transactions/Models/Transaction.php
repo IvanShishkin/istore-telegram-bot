@@ -3,6 +3,7 @@
 namespace App\Domain\Transactions\Models;
 
 use App\Domain\Transactions\Enums\TransactionStatusEnum;
+use App\Domain\User\Models\User;
 use Database\Factories\TransactionFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -51,11 +52,17 @@ class Transaction extends Model
     ];
 
     protected $casts = [
+        'id' => 'string',
         'status' => TransactionStatusEnum::class
     ];
 
     protected static function newFactory(): TransactionFactory
     {
         return TransactionFactory::new();
+    }
+
+    public function to()
+    {
+        return $this->belongsTo(TransactionItem::class, 'id', 'transaction_id');
     }
 }

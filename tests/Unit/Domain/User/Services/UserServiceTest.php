@@ -30,7 +30,7 @@ class UserServiceTest extends TestCase
     protected function mockRegisterDto(): RegistrationDto
     {
         return new RegistrationDto(
-            first_name: fake()->firstName,
+            name: fake()->firstName,
             last_name: fake()->lastName,
             email: fake()->email,
             active: false
@@ -52,7 +52,7 @@ class UserServiceTest extends TestCase
         User::factory(1)->create(['email' => $testEmail])->first();
 
         $dto = new RegistrationDto(
-            first_name: fake()->firstName,
+            name: fake()->firstName,
             last_name: fake()->lastName,
             email: $testEmail,
             active: false

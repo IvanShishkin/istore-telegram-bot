@@ -7,7 +7,7 @@ use App\Domain\Wallets\Dto\WalletLogDto;
 use App\Domain\Wallets\Models\WalletLog;
 use Illuminate\Support\Collection;
 
-class WalletLogRepository
+class WalletLogRepository implements WalletLogRepositoryInterface
 {
     public function write(WalletLogDto $dto): void
     {

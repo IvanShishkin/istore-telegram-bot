@@ -10,10 +10,11 @@ use Spatie\LaravelData\Data;
 class WalletLogDto extends Data
 {
     public function __construct(
-        public string $number,
-        public WalletLogOperationEnum $operation,
-        public int $value,
-        public ?Carbon $created_at = null,
+        public readonly string $number,
+        public readonly WalletLogOperationEnum $operation,
+        public readonly int $value,
+        public readonly ?Carbon $created_at = null,
+        public readonly ?string $comment = null,
     )
     {
     }

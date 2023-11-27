@@ -6,6 +6,8 @@ use App\Domain\Products\Listeners\OrderIncreaseProductStockListener;
 use App\Domain\Products\Listeners\OrderReduceProductStockListener;
 use App\Domain\Store\Events\OrderCancelledEvent;
 use App\Domain\Store\Events\OrderCreatedEvent;
+use App\Domain\Wallets\Listeners\CreateUserWalletListener;
+use App\Events\RegistrationConfirmEvent;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -26,6 +28,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         OrderCancelledEvent::class => [
             OrderIncreaseProductStockListener::class,
+        ],
+        RegistrationConfirmEvent::class => [
+            CreateUserWalletListener::class,
         ],
     ];
 
