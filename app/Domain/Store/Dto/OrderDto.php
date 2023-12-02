@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Domain\Store\Dto;
 
 use App\Domain\Store\Enums\OrderStatusEnum;
+use Carbon\Carbon;
+use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Data;
 
 class OrderDto extends Data
@@ -14,7 +16,8 @@ class OrderDto extends Data
         public readonly OrderStatusEnum $status,
         public readonly int $product_id,
         public readonly int $price,
-        public readonly string $transaction_id
+        public readonly string $transaction_id,
+        public readonly string $created_at
     )
     {
     }

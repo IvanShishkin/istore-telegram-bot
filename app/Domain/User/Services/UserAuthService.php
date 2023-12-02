@@ -15,6 +15,10 @@ use Spatie\LaravelData\Exceptions\InvalidDataClass;
 
 final class UserAuthService
 {
+    public function __construct(protected UserService $userService)
+    {
+    }
+
     /**
      * @throws UserNotFoundException
      */
@@ -53,21 +57,12 @@ final class UserAuthService
     }
 
     /**
-     * @param string $email
-     * @return bool
-     */
-    public function checkExistsByEmail(string $email): bool
-    {
-        return User::where(['email' => $email])->exists();
-    }
-
-    /**
      * @throws InvalidDataClass
      * @throws AlreadyExistsException
      */
     public function register(RegistrationDto $dto): UserDto
     {
-        if ($this->checkExistsByEmail($dto->getEmail())) {
+        if ($this->userService->existsByEmail($dto->getEmail())) {
             throw new AlreadyExistsException('Пользователь с таким email уже существует');
         }
 

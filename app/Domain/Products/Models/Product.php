@@ -42,7 +42,8 @@ class Product extends Model
         'active',
         'description',
         'price',
-        'stock'
+        'stock',
+        'image_path'
     ];
 
     protected static function newFactory(): ProductFactory

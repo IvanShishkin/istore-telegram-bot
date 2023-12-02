@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Domain\Products\Models\Product;
 use App\Domain\Store\Actions\CancelOrderAction;
 use App\Domain\Store\Actions\InProcessingOrderAction;
 use App\Domain\Store\Actions\ProcessedOrderAction;
@@ -22,7 +23,7 @@ class OrderResource extends Resource
     protected static ?string $model = \App\Domain\Store\Models\Order::class;
     protected static ?string $recordTitleAttribute = 'Заказы';
     protected static ?string $pluralModelLabel = 'Заказы';
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-cart';
 
@@ -44,6 +45,7 @@ class OrderResource extends Resource
                     ->label('Статус')
                     ->sortable()
                     ->badge()
+                    ->formatStateUsing(fn(OrderStatusEnum $state) => $state->label())
                     ->color(fn(OrderStatusEnum $state): string => match ($state->value) {
                         'new' => 'gray',
                         'cancel' => 'danger',
@@ -51,9 +53,12 @@ class OrderResource extends Resource
                         'in_processing' => 'warning',
                     }),
                 TextColumn::make('product.name')->label('Товар'),
-                TextColumn::make('price')->label('Стоимость')->description('IntCoin'),
+                TextColumn::make('price')
+                    ->label('Стоимость')
+                    ->formatStateUsing(fn(Order $order) => $order->price . '💎'),
                 TextColumn::make('created_at')->label('Дата оформления')->sortable(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

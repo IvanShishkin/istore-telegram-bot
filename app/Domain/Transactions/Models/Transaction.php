@@ -61,7 +61,7 @@ class Transaction extends Model
         return TransactionFactory::new();
     }
 
-    public function to()
+    public function items()
     {
         return $this->belongsTo(TransactionItem::class, 'id', 'transaction_id');
     }

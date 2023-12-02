@@ -26,6 +26,8 @@ class WalletResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-wallet';
 
+    protected static ?int $navigationSort = 5;
+
     public static function form(Form $form): Form
     {
         return $form

@@ -1,127 +1,61 @@
 <?php
+declare(strict_types=1);
 
 namespace Domain\User\Services;
 
-use App\Domain\User\Dto\RegistrationDto;
 use App\Domain\User\Dto\UserDto;
-use App\Domain\User\Exception\AlreadyExistsException;
-use App\Domain\User\Exception\RegistrationConfirmException;
 use App\Domain\User\Exception\UserNotFoundException;
 use App\Domain\User\Models\User;
-use App\Domain\User\Services\UserAuthService;
+use App\Domain\User\Services\UserService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Str;
 use Tests\TestCase;
-
 
 class UserServiceTest extends TestCase
 {
     use DatabaseTransactions;
 
-    protected UserAuthService $service;
+    protected UserService $service;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->service = app(UserAuthService::class);
+        $this->service = app(UserService::class);
     }
 
-    protected function mockRegisterDto(): RegistrationDto
+    public function testById()
     {
-        return new RegistrationDto(
-            name: fake()->firstName,
-            last_name: fake()->lastName,
-            email: fake()->email,
-            active: false
-        );
+        $createdUser = User::factory(1)->create()->first();
+
+        $get = $this->service->byId($createdUser->id);
+
+        $this->assertIsObject($get, UserDto::class);
     }
 
-    public function testRegisterSuccess()
+    public function testByIdNotFound()
     {
-        $dto = $this->mockRegisterDto();
-
-        $userDto = $this->service->register($dto);
-
-        $this->assertIsObject($userDto, UserDto::class);
-    }
-
-    public function testRegisterAlreadyExist()
-    {
-        $testEmail = 'example@example.ru';
-        User::factory(1)->create(['email' => $testEmail])->first();
-
-        $dto = new RegistrationDto(
-            name: fake()->firstName,
-            last_name: fake()->lastName,
-            email: $testEmail,
-            active: false
-        );
-
-        $this->expectException(AlreadyExistsException::class);
-        $this->service->register($dto);
-    }
-
-    public function testRegistrationConfirmation()
-    {
-        $registerUserDto = $this->service->register($this->mockRegisterDto());
-        $confirmToken = $registerUserDto->getConfirmToken();
-        $externalId = 123456;
-
-        $confirmUserDto = $this->service->registrationConfirmation($confirmToken, $externalId);
-
-        $this->assertEquals($confirmUserDto->getExternalId(), $externalId);
-        $this->assertTrue($confirmUserDto->isActive());
-    }
-
-    public function testRegistrationConfirmationInvalidToken()
-    {
-        $this->expectException(RegistrationConfirmException::class);
-
-        $this->service->registrationConfirmation(Str::random(8));
-    }
-
-    public function testAuthByExternalId()
-    {
-        $externalId = 12345678;
-        $createdUser = User::factory(1)->create([
-            'active' => true,
-            'external_id' => $externalId
-        ])->first();
-
-        $this->service->authByExternalId($externalId);
-
-        $this->assertAuthenticatedAs($createdUser);
-    }
-
-    public function testAuthByExternalIdNotFound()
-    {
-        $externalId = 12345678;
-
         $this->expectException(UserNotFoundException::class);
-        $this->service->authByExternalId($externalId);
+        $this->service->byId(fake()->randomNumber());
     }
 
-    public function testAuthByExternalIdNotActiveUser()
-    {
-        $externalId = 12345678;
-        User::factory(1)->create([
-            'active' => false,
-            'external_id' => $externalId
-        ])->first();
-
-        $this->expectException(UserNotFoundException::class);
-        $this->service->authByExternalId($externalId);
-    }
-
-    public function testCheckExistsByEmail()
+    public function testExistsByEmail()
     {
         $email = 'test@test.test';
+
         User::factory(1)->create([
             'email' => $email,
         ])->first();
 
-        $exists = $this->service->checkExistsByEmail($email);
+        $exists = $this->service->existsByEmail($email);
+
+        $this->assertTrue($exists);
+    }
+
+    public function testExistsExternalId()
+    {
+        $model = User::factory(1)->create()->first();
+
+        $exists = $this->service->existsByExternalId($model->external_id);
 
         $this->assertTrue($exists);
     }

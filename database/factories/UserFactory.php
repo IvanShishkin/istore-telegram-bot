@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
             'confirm_token' => Str::random(8),
-            'external_id' => null,
+            'external_id' => $this->faker->randomNumber(),
             'active' => false
         ];
     }

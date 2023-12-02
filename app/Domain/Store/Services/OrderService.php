@@ -10,6 +10,7 @@ use App\Domain\Store\Exceptions\ErrorCreateOrderException;
 use App\Domain\Store\Exceptions\OrderNotExistsException;
 use App\Domain\Store\Models\Order;
 use App\Domain\User\Dto\UserDto;
+use Illuminate\Support\Collection;
 
 class OrderService
 {
@@ -43,8 +44,6 @@ class OrderService
         return self::makeDto($model);
     }
 
-
-
     /**
      * @param int $id
      * @return OrderDto
@@ -59,6 +58,17 @@ class OrderService
         }
 
         return self::makeDto($model);
+    }
+
+    /**
+     * @param int $userId
+     * @return ?Collection<OrderDto>
+     */
+    public function getListForUser(int $userId): ?Collection
+    {
+        $list = Order::where(['user_id' => $userId])->get();
+
+        return $list->map(fn(Order $order) => self::makeDto($order));
     }
 
     protected function getModel(int $id): ?Order

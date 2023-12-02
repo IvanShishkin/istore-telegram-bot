@@ -6,6 +6,7 @@ use App\Domain\User\Models\User;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 
+use App\Telegram\Components\ActionLinkBuilder;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -21,6 +22,7 @@ class UserResource extends Resource
     protected static ?string $pluralModelLabel = 'Пользователи';
 
     protected static ?string $navigationIcon = 'heroicon-o-user';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -54,10 +56,12 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('email')
                     ->label('Email'),
                 Tables\Columns\TextColumn::make('confirm_token_link')
-                    ->label('Ссылка')
+                    ->label('Ссылка для подтверждения регистрации')
                     ->copyable()
                     ->default(function (User $record) {
-                        return 'test.ru/' . $record->confirm_token;
+                        if (!empty($record->confirm_token) && !$record->active) {
+                            return ActionLinkBuilder::makeRegistrationConfirm($record->confirm_token);
+                        }
                     })
 
             ])

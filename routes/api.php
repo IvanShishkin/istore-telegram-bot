@@ -24,6 +24,11 @@ Route::any('/regUser', function (\App\Domain\User\Services\UserAuthService $serv
     $service->registrationConfirmation('5HdQQpWz');
 });
 
+Route::any('test2', function (\App\Domain\Store\Services\OrderService $service) {
+    $list = $service->getListForUser(1);
+    dd($list);
+});
+
 Route::any('/createTransaction', function(
     \App\Domain\Transactions\Actions\CreateTransactionAction $action,
     \App\Domain\Wallets\Services\UserWalletService $userWalletService,

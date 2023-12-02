@@ -26,4 +26,22 @@ class UserService
 
         return $model->dto();
     }
+
+    /**
+     * @param string $email
+     * @return bool
+     */
+    public function existsByEmail(string $email): bool
+    {
+        return User::where(['email' => $email])->exists();
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function existsByExternalId(int $id): bool
+    {
+        return User::where(['external_id' => $id])->exists();
+    }
 }

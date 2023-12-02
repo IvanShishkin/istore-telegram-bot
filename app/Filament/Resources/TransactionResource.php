@@ -2,12 +2,19 @@
 
 namespace App\Filament\Resources;
 
+use App\Domain\Store\Enums\OrderStatusEnum;
+use App\Domain\Transactions\Actions\CancelTransactionAction;
+use App\Domain\Transactions\Enums\TransactionDirectionEnum;
+use App\Domain\Transactions\Enums\TransactionStatusEnum;
 use App\Domain\Transactions\Models\Transaction;
+use App\Domain\Transactions\Models\TransactionItem;
+use App\Domain\User\Models\User;
 use App\Domain\Wallets\Enums\WalletTypesEnum;
 use App\Filament\Resources\TransactionResource\Pages;
 use App\Filament\Resources\TransactionResource\RelationManagers;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -19,6 +26,7 @@ class TransactionResource extends Resource
     protected static ?string $model = Transaction::class;
     protected static ?string $recordTitleAttribute = 'Транзакции';
     protected static ?string $pluralModelLabel = 'Транзакции';
+    protected static ?int $navigationSort = 10;
 
     protected static ?string $navigationIcon = 'heroicon-o-cube-transparent';
 
@@ -38,41 +46,88 @@ class TransactionResource extends Resource
                     ->default(fn(Transaction $record) => $record->id)
                     ->label('Id'),
                 Tables\Columns\TextColumn::make('status')
-                    ->label('Статус'),
+                    ->label('Статус')
+                    ->badge()
+                    ->color(fn(TransactionStatusEnum $state): string => match ($state->value) {
+                        'closed' => 'danger',
+                        'completed' => 'success',
+                        'new' => 'warning',
+                    }),
                 Tables\Columns\TextColumn::make('value')
-                    ->label('Значение'),
+                    ->label('Сумма'),
+                Tables\Columns\TextColumn::make('from_direction')
+                    ->label('Отправитель')
+                    ->default(function (Transaction $record) {
+                        return self::getTransactionDirectionPlaceholder($record, TransactionDirectionEnum::FROM);
+                    }),
+                Tables\Columns\TextColumn::make('to_direction')
+                    ->label('Получатель')
+                    ->default(function (Transaction $record) {
+                        return self::getTransactionDirectionPlaceholder($record, TransactionDirectionEnum::TO);
+                    }),
                 Tables\Columns\TextColumn::make('error_detail')
                     ->label('Ошибка'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Дата создания'),
-                Tables\Columns\TextColumn::make('to_user')
-                    ->label('Дата создания')
-                    ->default(function (Transaction $record) {
-                        $toWallet = $record->to()->where('direction', 'to')->first();
-                        if (!$toWallet) {
-                            return null;
-                        }
 
-                        $type = $toWallet->type;
-
-                        if ($type === WalletTypesEnum::STORE) {
-                            return 'Store';
-                        }
-
-
-                    }),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('action_cancel')
+                    ->label('Отменить')
+                    ->color('danger')
+                    ->button()
+                    ->requiresConfirmation()
+                    ->visible(fn (Transaction $record) => $record->status === TransactionStatusEnum::NEW)
+                    ->action(function (Transaction $record) {
+                        try {
+                            /** @var CancelTransactionAction $action */
+                            $action = \App::make(CancelTransactionAction::class);
+                            $action->execute($record->id);
+                        } catch (\Exception $exception) {
+                            Notification::make()
+                                ->title('Ошибка')
+                                ->body($exception->getMessage())
+                                ->danger()
+                                ->send();
+                        }
+
+                    })
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+
             ]);
+    }
+
+    protected static function getTransactionDirectionPlaceholder(
+        Transaction $transaction,
+        TransactionDirectionEnum $direction
+    ): string {
+        $return = '';
+        /** @var TransactionItem $item */
+        $item = $transaction->items()->where('direction', $direction)->first();
+
+        if (!$item) {
+            return $return;
+        }
+
+        $type = $item->type;
+
+        if ($type === WalletTypesEnum::STORE) {
+            $return = 'Store';
+        } elseif ($type === WalletTypesEnum::USER) {
+            /** @var User $walletHolder */
+            $walletHolder = $item->userWallet()->first()?->holder()?->first();
+
+            if ($walletHolder) {
+                $return = $walletHolder->name . ' ' . $walletHolder->last_name;
+            }
+        }
+
+        return $return;
     }
 
     public static function getRelations(): array

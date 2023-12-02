@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->bigInteger('external_id')->nullable();
+            $table->bigInteger('external_id')->nullable()->unique();
             $table->boolean('active')->default(false);
             $table->string('confirm_token')->nullable();
             $table->boolean('is_admin')->default(false);

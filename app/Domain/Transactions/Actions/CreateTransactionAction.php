@@ -33,8 +33,9 @@ final class CreateTransactionAction
             \DB::beginTransaction();
 
             $this->balanceService->reduce(
-                $dto->getFrom(),
-                $dto->getValue()
+                wallet: $dto->getFrom(),
+                value: $dto->getValue(),
+                comment: $dto->comment
             );
 
             $transactionId = $this->transactionService->create($dto);

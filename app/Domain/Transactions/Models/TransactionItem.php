@@ -5,6 +5,8 @@ namespace App\Domain\Transactions\Models;
 use App\Domain\Transactions\Enums\TransactionDirectionEnum;
 use App\Domain\Transactions\Enums\TransactionStatusEnum;
 use App\Domain\Wallets\Enums\WalletTypesEnum;
+use App\Domain\Wallets\Models\UserWalletModel;
+use App\Domain\Wallets\UserWallet;
 use Database\Factories\TransactionFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -50,5 +52,10 @@ class TransactionItem extends Model
     protected static function newFactory(): TransactionFactory
     {
         return TransactionFactory::new();
+    }
+
+    public function userWallet()
+    {
+        return $this->belongsTo(UserWalletModel::class, 'wallet_number', 'number');
     }
 }

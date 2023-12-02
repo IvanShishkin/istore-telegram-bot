@@ -33,10 +33,9 @@ class LogsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('logs')
+            ->recordTitleAttribute('Список операций')
             ->columns([
                 Tables\Columns\TextColumn::make('created_at')->label('Дата операции'),
-                Tables\Columns\TextColumn::make('value')->label('Значение'),
                 Tables\Columns\IconColumn::make('operation')
                     ->icon(fn (WalletLogOperationEnum $state): string => match ($state) {
                         WalletLogOperationEnum::INCREASE => 'heroicon-s-arrow-small-up',
@@ -46,11 +45,13 @@ class LogsRelationManager extends RelationManager
                         WalletLogOperationEnum::INCREASE => 'success',
                         WalletLogOperationEnum::REDUCE => 'danger',
                     })->label('Операция'),
+                Tables\Columns\TextColumn::make('value')->label('Значение'),
                 Tables\Columns\TextColumn::make('comment')->label('Комментарий')
             ])
             ->filters([
                 //
             ])
+            ->defaultSort('created_at', 'desc')
             ->headerActions([
 
             ])

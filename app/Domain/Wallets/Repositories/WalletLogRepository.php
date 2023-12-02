@@ -18,10 +18,14 @@ class WalletLogRepository implements WalletLogRepositoryInterface
      * @param string $walletNumber
      * @return Collection<WalletLogDto>
      */
-    public function get(string $walletNumber): Collection
+    public function get(string $walletNumber, ?int $limit = null): Collection
     {
-        $get = WalletLog::where(['number' => $walletNumber])->get();
+        $get = WalletLog::where(['number' => $walletNumber]);
 
-        return $get->map(fn($item) => WalletLogDto::from($item));
+        if ($limit) {
+            $get->limit($limit);
+        }
+
+        return $get->orderByDesc('id')->get()->map(fn($item) => WalletLogDto::from($item));
     }
 }

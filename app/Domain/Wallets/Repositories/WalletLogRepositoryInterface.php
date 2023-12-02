@@ -13,5 +13,5 @@ interface WalletLogRepositoryInterface
      * @param string $walletNumber
      * @return Collection<WalletLogDto>
      */
-    public function get(string $walletNumber): Collection;
+    public function get(string $walletNumber, ?int $limit = null): Collection;
 }

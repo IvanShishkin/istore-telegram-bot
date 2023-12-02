@@ -2,7 +2,6 @@
 
 namespace App\Telegram;
 
-use App\Telegram\Extends\Test;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use SergiX44\Nutgram\Nutgram;
@@ -20,9 +19,8 @@ abstract class AbstractBotProcessor
     {
         $this->bot->setRunningMode(Webhook::class);
 
-        $this->defineHandlers();
-
         try {
+            $this->defineHandlers();
             $this->bot->run();
         } catch (NotFoundExceptionInterface|ContainerExceptionInterface $e) {
         }
@@ -35,5 +33,4 @@ abstract class AbstractBotProcessor
     {
         return $this->bot;
     }
-
 }

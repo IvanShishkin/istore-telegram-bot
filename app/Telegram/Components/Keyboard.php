@@ -13,6 +13,7 @@ class Keyboard
     {
         return ReplyKeyboardMarkup::make()
             ->addRow(KeyboardButton::make(MenuEnum::CATALOG->value()))
-            ->addRow(KeyboardButton::make(MenuEnum::ACCOUNT->value()));
+            ->addRow(KeyboardButton::make(MenuEnum::ACCOUNT->value()))
+            ->addRow(KeyboardButton::make(MenuEnum::ORDER->value()));
     }
 }

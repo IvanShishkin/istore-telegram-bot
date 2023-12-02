@@ -23,8 +23,10 @@ class ListUsers extends ListRecords
                 ->label('Зарегистрировать')
                 ->color('success')
                 ->form([
-                    TextInput::make('name'),
-                    TextInput::make('last_name'),
+                    TextInput::make('name')
+                        ->label('Имя'),
+                    TextInput::make('last_name')
+                        ->label('Фамилия'),
                     TextInput::make('email'),
                 ])
                 ->action(function (

@@ -112,6 +112,13 @@ return [
             'replace_placeholders' => true,
         ],
 
+        'telegram' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/telegram.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'replace_placeholders' => true,
+        ],
+
         'errorlog' => [
             'driver' => 'errorlog',
             'level' => env('LOG_LEVEL', 'debug'),
