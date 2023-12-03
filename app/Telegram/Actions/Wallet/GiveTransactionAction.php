@@ -12,7 +12,7 @@ use App\Support\Utils;
 use Illuminate\Support\Facades\Auth;
 use SergiX44\Nutgram\Nutgram;
 
-final class GiveTransactionHandler
+final class GiveTransactionAction
 {
     public function __invoke(Nutgram $bot, $value): void
     {

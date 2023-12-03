@@ -16,7 +16,7 @@ use SergiX44\Nutgram\Nutgram;
 /**
  * Показ списка заказов пользователя отсортированных по приоритету статуса
  */
-final class ShowOrderListHandler
+final class ShowOrderListAction
 {
     public function __invoke(Nutgram $bot): void
     {

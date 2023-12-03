@@ -6,7 +6,7 @@ namespace App\Telegram\Actions\Store;
 
 use SergiX44\Nutgram\Nutgram;
 
-final class LowBalanceHandler
+final class LowBalanceAction
 {
     public function __invoke(Nutgram $bot): void
     {

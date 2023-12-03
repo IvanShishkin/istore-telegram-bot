@@ -11,7 +11,7 @@ use App\Support\Utils;
 use Illuminate\Support\Facades\Auth;
 use SergiX44\Nutgram\Nutgram;
 
-final class BuyProductHandler
+final class BuyProductAction
 {
     public function __invoke(Nutgram $bot, $productId): void
     {

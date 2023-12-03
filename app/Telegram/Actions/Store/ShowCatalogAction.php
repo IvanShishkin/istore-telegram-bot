@@ -9,7 +9,7 @@ use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Types\Keyboard\InlineKeyboardButton;
 use SergiX44\Nutgram\Telegram\Types\Keyboard\InlineKeyboardMarkup;
 
-final class ShowCatalogHandler
+final class ShowCatalogAction
 {
     public function __invoke(Nutgram $bot): void
     {

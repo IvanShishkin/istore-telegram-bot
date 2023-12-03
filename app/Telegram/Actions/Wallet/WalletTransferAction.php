@@ -11,7 +11,7 @@ use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Types\Keyboard\InlineKeyboardButton;
 use SergiX44\Nutgram\Telegram\Types\Keyboard\InlineKeyboardMarkup;
 
-final class WalletTransferHandler
+final class WalletTransferAction
 {
     public const DEFINE_TRANSFER_VALUES = [
         100,

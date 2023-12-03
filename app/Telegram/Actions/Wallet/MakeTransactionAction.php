@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use SergiX44\Nutgram\Nutgram;
 
-final class MakeTransactionHandler
+final class MakeTransactionAction
 {
     public function __invoke(Nutgram $bot, $value): void
     {

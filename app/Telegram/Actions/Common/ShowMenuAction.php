@@ -10,7 +10,7 @@ use SergiX44\Nutgram\Nutgram;
 /**
  * Показ основного меню бота
  */
-final class MenuHandler
+final class ShowMenuAction
 {
     public function __invoke(Nutgram $bot): void
     {

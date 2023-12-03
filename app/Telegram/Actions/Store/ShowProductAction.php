@@ -14,7 +14,7 @@ use SergiX44\Nutgram\Telegram\Types\Internal\InputFile;
 use SergiX44\Nutgram\Telegram\Types\Keyboard\InlineKeyboardButton;
 use SergiX44\Nutgram\Telegram\Types\Keyboard\InlineKeyboardMarkup;
 
-final class ShowProductHandler
+final class ShowProductAction
 {
     public function __invoke(Nutgram $bot, $id): void
     {

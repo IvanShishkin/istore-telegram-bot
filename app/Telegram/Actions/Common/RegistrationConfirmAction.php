@@ -18,7 +18,7 @@ use SergiX44\Nutgram\Nutgram;
 /**
  * Подтверждение регистрации пользователя через специальную ссылку с токеном
  */
-final class RegistrationConfirmHandler
+final class RegistrationConfirmAction
 {
     public function __invoke(
         Nutgram $bot,
