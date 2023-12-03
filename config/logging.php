@@ -113,9 +113,42 @@ return [
         ],
 
         'telegram' => [
-            'driver' => 'single',
+            'driver' => 'daily',
             'path' => storage_path('logs/telegram.log'),
             'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+            'replace_placeholders' => true,
+        ],
+
+        'transaction' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/transaction.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+            'replace_placeholders' => true,
+        ],
+
+        'user' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/user.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+            'replace_placeholders' => true,
+        ],
+
+        'store' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/store.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+            'replace_placeholders' => true,
+        ],
+
+        'wallet' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/wallet.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
             'replace_placeholders' => true,
         ],
 

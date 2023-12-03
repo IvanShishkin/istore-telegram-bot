@@ -8,6 +8,7 @@ use App\Domain\Wallets\Enums\WalletTypesEnum;
 use App\Domain\Wallets\Models\UserWalletModel;
 use App\Domain\Wallets\UserWallet;
 use Database\Factories\TransactionFactory;
+use Database\Factories\TransactionItemFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -49,9 +50,9 @@ class TransactionItem extends Model
         'type' => WalletTypesEnum::class
     ];
 
-    protected static function newFactory(): TransactionFactory
+    protected static function newFactory(): TransactionItemFactory
     {
-        return TransactionFactory::new();
+        return TransactionItemFactory::new();
     }
 
     public function userWallet()

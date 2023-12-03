@@ -8,6 +8,8 @@ use App\Domain\Products\Repositories\ProductRepository;
 use App\Domain\Wallets\Repositories\WalletLogRepository;
 use App\Domain\Wallets\Repositories\WalletLogRepositoryInterface;
 use App\Support\Logger\TelegramLoggerAwareInterface;
+use App\Support\Logger\TransactionLoggerInterface;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 use SergiX44\Nutgram\Nutgram;
 
@@ -43,6 +45,11 @@ class AppServiceProvider extends ServiceProvider
             function (TelegramLoggerAwareInterface $aware) {
                 $aware->setLogger(\Log::channel('telegram'));
             }
+        );
+
+        $this->app->afterResolving(
+            TransactionLoggerInterface::class,
+            fn(TransactionLoggerInterface $resolve) => $resolve->setLogger(Log::channel('transaction'))
         );
     }
 }

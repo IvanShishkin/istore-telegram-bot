@@ -16,6 +16,7 @@ class TransactionDto extends Data
         public ?WalletInterface $to = null,
         public ?Carbon $term_at = null,
         public ?string $comment = null,
+        public ?TransactionStatusEnum $status = null,
     )
     {
     }

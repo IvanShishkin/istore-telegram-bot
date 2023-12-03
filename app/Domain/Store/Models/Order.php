@@ -5,6 +5,8 @@ namespace App\Domain\Store\Models;
 use App\Domain\Products\Models\Product;
 use App\Domain\Store\Enums\OrderStatusEnum;
 use App\Domain\User\Models\User;
+use Database\Factories\OrderFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -35,6 +37,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Order extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'user_id',
         'status',
@@ -55,5 +59,10 @@ class Order extends Model
     public function customer()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    protected static function newFactory(): OrderFactory
+    {
+        return OrderFactory::new();
     }
 }

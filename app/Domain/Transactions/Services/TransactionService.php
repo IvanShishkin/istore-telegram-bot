@@ -78,9 +78,9 @@ class TransactionService
         return new TransactionDto(
             from: $direction[TransactionDirectionEnum::FROM->value],
             value: $transaction->value,
-            to: $direction[TransactionDirectionEnum::TO->value]
+            to: $direction[TransactionDirectionEnum::TO->value],
+            status: $transaction->status
         );
-
     }
 
     /**
@@ -88,7 +88,7 @@ class TransactionService
      * @throws TransactionNotFoundException
      * @throws ErrorApplyTransactionException
      */
-    public function apply(string $transactionId, ?WalletInterface $wallet): TransactionDto
+    public function apply(string $transactionId, ?WalletInterface $wallet = null): TransactionDto
     {
         $transaction = $this->getModel($transactionId);
 
@@ -130,7 +130,8 @@ class TransactionService
         return new TransactionDto(
             from: $direction[TransactionDirectionEnum::FROM->value],
             value: $transaction->value,
-            to: $direction[TransactionDirectionEnum::TO->value]
+            to: $direction[TransactionDirectionEnum::TO->value],
+            status: $transaction->status
         );
     }
 

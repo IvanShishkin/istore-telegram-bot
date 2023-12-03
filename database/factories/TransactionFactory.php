@@ -2,9 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Domain\Transactions\Enums\TransactionStatusEnum;
 use App\Domain\Transactions\Models\Transaction;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
+use Ramsey\Uuid\Uuid;
 
 class TransactionFactory extends Factory
 {
@@ -13,14 +15,12 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
-            'status' => 'new',
+            'id' => Uuid::uuid4()->toString(),
+            'status' => TransactionStatusEnum::NEW,
             'value' => 100,
-            'term_at' => Carbon::now(),
+            'term_at' => null,
             'with_error' => false,
             'error_detail' => null,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-            'lifetime_at' => null,
         ];
     }
 }

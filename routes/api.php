@@ -24,8 +24,8 @@ Route::any('/regUser', function (\App\Domain\User\Services\UserAuthService $serv
     $service->registrationConfirmation('5HdQQpWz');
 });
 
-Route::any('test2', function (\App\Domain\Store\Services\OrderService $service) {
-    $list = $service->getListForUser(1);
+Route::any('test2', function (\App\Domain\Transactions\Services\TerminateService $service) {
+    $list = $service->exec();
     dd($list);
 });
 

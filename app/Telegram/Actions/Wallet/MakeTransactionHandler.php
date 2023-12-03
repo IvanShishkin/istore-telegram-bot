@@ -8,6 +8,7 @@ use App\Domain\Transactions\Dto\TransactionDto;
 use App\Domain\Wallets\Services\UserWalletService;
 use App\Support\Utils;
 use App\Telegram\Components\ActionLinkBuilder;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use SergiX44\Nutgram\Nutgram;
@@ -25,9 +26,12 @@ final class MakeTransactionHandler
 
             $wallet = $userWalletService->initWallet(\Auth::id());
 
+            $terminateDate = Carbon::now()->addHours(24);
+
             $transactionDto = new TransactionDto(
                 from: $wallet,
                 value: (int)$value,
+                term_at: $terminateDate,
                 comment: __('bot_wallet.transfer_transaction_comment')
             );
 

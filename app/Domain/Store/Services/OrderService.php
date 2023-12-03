@@ -34,7 +34,6 @@ class OrderService
             'product_id' => $productDto->id,
             'price' => $productDto->price,
             'transaction_id' => $transactionId,
-            'canceled' => false,
         ]);
 
         if (!$model) {

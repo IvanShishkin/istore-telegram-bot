@@ -39,14 +39,6 @@ class OrderDto extends Data
     }
 
     /**
-     * @return bool
-     */
-    public function isCanceled(): bool
-    {
-        return $this->canceled;
-    }
-
-    /**
      * @return int
      */
     public function getProductId(): int
@@ -61,7 +53,6 @@ class OrderDto extends Data
     {
         return $this->price;
     }
-
 
     /**
      * @return string
