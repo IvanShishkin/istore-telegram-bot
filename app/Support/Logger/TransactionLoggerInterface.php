@@ -6,5 +6,4 @@ use Psr\Log\LoggerAwareInterface;
 
 interface TransactionLoggerInterface extends LoggerAwareInterface
 {
-
 }

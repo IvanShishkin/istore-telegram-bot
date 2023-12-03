@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Transactions\Dto;
@@ -17,8 +18,7 @@ class TransactionDto extends Data
         public ?Carbon $term_at = null,
         public ?string $comment = null,
         public ?TransactionStatusEnum $status = null,
-    )
-    {
+    ) {
     }
 
     /**

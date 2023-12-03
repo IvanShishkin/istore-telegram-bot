@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Telegram\Actions\Store;
@@ -23,7 +24,7 @@ final class ShowCatalogHandler
                 $productName = $product->name;
                 $productPrice = $product->price;
 
-                $productTitle = $productName . ' 💎 '. $productPrice;
+                $productTitle = $productName . ' 💎 ' . $productPrice;
                 $keyboard->addRow(InlineKeyboardButton::make(
                     text: $productTitle,
                     callback_data: 'product ' . $product->id

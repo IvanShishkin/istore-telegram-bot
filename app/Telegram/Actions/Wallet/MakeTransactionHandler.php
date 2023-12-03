@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Telegram\Actions\Wallet;
@@ -43,7 +44,6 @@ final class MakeTransactionHandler
             ]);
 
             $bot->editMessageText(text: $message, parse_mode: 'HTML');
-
         } catch (\Throwable $exception) {
             $errorCode = Utils::errorInitializationCode();
 

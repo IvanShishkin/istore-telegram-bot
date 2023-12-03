@@ -17,7 +17,6 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-
 class OrderResource extends Resource
 {
     protected static ?string $model = \App\Domain\Store\Models\Order::class;
@@ -77,7 +76,6 @@ class OrderResource extends Resource
                         } catch (ErrorOrderActionException $exception) {
                             self::errorNotification('Ошибка смены статуса', $exception->getMessage());
                         }
-
                     }),
                 Tables\Actions\Action::make('processed')
                     ->label('Выполнен')
@@ -93,7 +91,6 @@ class OrderResource extends Resource
                         } catch (ErrorOrderActionException $exception) {
                             self::errorNotification('Ошибка смены статуса', $exception->getMessage());
                         }
-
                     }),
 
                 Tables\Actions\Action::make('cancel')
@@ -110,7 +107,6 @@ class OrderResource extends Resource
                         } catch (ErrorOrderActionException $exception) {
                             self::errorNotification('Ошибка смены статуса', $exception->getMessage());
                         }
-
                     })
             ])
             ->bulkActions([

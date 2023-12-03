@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Telegram\Actions\Wallet;
@@ -49,7 +50,6 @@ final class WalletTransferHandler
                 parse_mode: 'HTML',
                 reply_markup: $keyboard
             );
-
         } catch (\Throwable $exception) {
             $errorCode = Utils::errorInitializationCode();
 

@@ -31,7 +31,6 @@ class StatsOverview extends BaseWidget
                     ->description('Всего заказов ' . $this->getCountOrders()),
             ];
         } catch (WalletNotExistsException) {
-
         }
 
         return $options;

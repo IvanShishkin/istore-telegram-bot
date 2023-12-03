@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Wallets\Dto;
@@ -15,7 +16,6 @@ class WalletLogDto extends Data
         public readonly int $value,
         public readonly ?Carbon $created_at = null,
         public readonly ?string $comment = null,
-    )
-    {
+    ) {
     }
 }

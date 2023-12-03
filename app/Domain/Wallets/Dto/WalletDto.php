@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Wallets\Dto;
@@ -11,7 +12,6 @@ class WalletDto extends Data
         public string $number,
         public int $balance,
         public ?int $holder_id = null
-    )
-    {
+    ) {
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Products\Dto;
@@ -15,7 +16,6 @@ final class ProductDto extends Data
         public readonly int $price,
         public readonly int $stock,
         public readonly ?string $image_path = null,
-    )
-    {
+    ) {
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Telegram\Actions\Store;
@@ -35,7 +36,6 @@ final class BuyProductHandler
                 parse_mode: 'HTML'
             );
             $bot->deleteMessage($bot->chatId(), $bot->messageId());
-
         } catch (\Throwable $exception) {
             $errorCode = Utils::errorInitializationCode();
 

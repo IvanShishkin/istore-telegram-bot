@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\User\Dto;
@@ -15,8 +16,7 @@ class UserDto extends Data
         public readonly bool $active,
         public readonly ?string $confirm_token,
         public readonly ?int $external_id
-    )
-    {
+    ) {
     }
 
     /**

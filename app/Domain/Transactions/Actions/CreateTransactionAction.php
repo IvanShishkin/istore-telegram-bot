@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Transactions\Actions;
@@ -15,8 +16,7 @@ final class CreateTransactionAction
     public function __construct(
         protected ChangeBalanceService $balanceService,
         protected TransactionService $transactionService
-    )
-    {
+    ) {
     }
 
     /**

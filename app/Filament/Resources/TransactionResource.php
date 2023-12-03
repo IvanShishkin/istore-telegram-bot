@@ -94,7 +94,6 @@ class TransactionResource extends Resource
                                 ->danger()
                                 ->send();
                         }
-
                     })
             ])
             ->bulkActions([

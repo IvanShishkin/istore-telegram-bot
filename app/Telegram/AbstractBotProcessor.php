@@ -22,7 +22,7 @@ abstract class AbstractBotProcessor
         try {
             $this->defineHandlers();
             $this->bot->run();
-        } catch (NotFoundExceptionInterface|ContainerExceptionInterface $e) {
+        } catch (NotFoundExceptionInterface | ContainerExceptionInterface $e) {
         }
     }
 

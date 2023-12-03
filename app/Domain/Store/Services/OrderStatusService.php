@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Store\Services;
@@ -25,6 +26,8 @@ final class OrderStatusService
     ];
 
     /**
+     * @param int $id
+     * @return OrderDto
      * @throws OrderChangeStatusException
      */
     public function cancel(int $id): OrderDto

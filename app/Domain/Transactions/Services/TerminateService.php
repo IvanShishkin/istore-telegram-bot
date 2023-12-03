@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Transactions\Services;
@@ -48,10 +49,11 @@ final class TerminateService implements TransactionLoggerInterface
                         'transaction_id' => $transactionId
                     ]);
                 } catch (
-                IncorrectStatusException
-                | TransactionNotFoundException
-                | FailedSaveException
-                | InitializationException $e) {
+                    IncorrectStatusException
+                    | TransactionNotFoundException
+                    | FailedSaveException
+                    | InitializationException $e
+                ) {
                     $this->logger?->critical('Логическая ошибка отмены транзакции', [
                         'exception' => $e,
                         'transaction_id' => $transactionId

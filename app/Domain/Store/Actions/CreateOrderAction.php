@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Store\Actions;
@@ -57,7 +58,6 @@ final class CreateOrderAction
             OrderCreatedEvent::dispatch($orderDto);
 
             return $orderDto;
-
         } catch (\Throwable $e) {
             DB::rollBack();
 

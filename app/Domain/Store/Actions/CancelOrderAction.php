@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Store\Actions;
@@ -14,8 +15,7 @@ final class CancelOrderAction
     public function __construct(
         protected OrderStatusService $orderStatusService,
         protected CancelTransactionAction $cancelTransactionAction
-    )
-    {
+    ) {
     }
 
     /**

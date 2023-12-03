@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Domain\User\Models\User;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
-
 use App\Telegram\Components\ActionLinkBuilder;
 use Filament\Forms;
 use Filament\Forms\Form;

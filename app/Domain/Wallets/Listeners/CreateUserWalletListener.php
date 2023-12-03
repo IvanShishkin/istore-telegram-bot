@@ -12,8 +12,7 @@ class CreateUserWalletListener
     public function __construct(
         protected UserWalletService $userWalletService,
         protected ChangeBalanceService $balanceService
-    )
-    {
+    ) {
     }
 
     public function handle(RegistrationConfirmEvent $event): void

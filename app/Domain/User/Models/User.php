@@ -52,7 +52,10 @@ use Spatie\LaravelData\WithData;
  */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, WithData;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+    use WithData;
 
     public string $dataClass = UserDto::class;
     /**

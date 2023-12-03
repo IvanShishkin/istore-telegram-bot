@@ -1,4 +1,4 @@
-container="intshop-app"
+container="laravel.test"
 
 up:
 	vendor/bin/sail up -d

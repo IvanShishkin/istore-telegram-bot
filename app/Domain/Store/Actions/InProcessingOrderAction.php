@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Store\Actions;
@@ -32,7 +33,6 @@ final class InProcessingOrderAction
         } catch (\Throwable $e) {
             DB::rollBack();
             throw new ErrorOrderActionException("Ошибка выполнения " . __CLASS__ . ". Детально: {$e->getMessage()}");
-
         }
     }
 }

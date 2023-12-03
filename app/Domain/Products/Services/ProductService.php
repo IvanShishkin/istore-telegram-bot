@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Products\Services;
@@ -15,8 +16,7 @@ final class ProductService
     public function __construct(
         protected ProductRepositoryInterface $productRepository,
         protected StockRepositoryInterface $stockRepository
-    )
-    {
+    ) {
     }
 
     /**

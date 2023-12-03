@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Store\Dto;
@@ -18,8 +19,7 @@ class OrderDto extends Data
         public readonly int $price,
         public readonly string $transaction_id,
         public readonly string $created_at
-    )
-    {
+    ) {
     }
 
     /**

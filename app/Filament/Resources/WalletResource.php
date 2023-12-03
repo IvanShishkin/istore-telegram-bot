@@ -76,7 +76,6 @@ class WalletResource extends Resource
                                 ->body($exception->getMessage())
                                 ->send();
                         }
-
                     })
             ])
             ->bulkActions([

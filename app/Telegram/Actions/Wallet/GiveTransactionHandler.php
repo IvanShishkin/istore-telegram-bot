@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Telegram\Actions\Wallet;
@@ -30,7 +31,7 @@ final class GiveTransactionHandler
                 text: __('bot_wallet.transaction_apply', ['value' => $transactionDto->value]),
                 parse_mode: 'HTML'
             );
-        } catch (IncorrectStatusException|ErrorApplyTransactionException){
+        } catch (IncorrectStatusException | ErrorApplyTransactionException) {
             $bot->sendMessage(
                 text: __('bot_wallet.transaction_error'),
                 parse_mode: 'HTML',

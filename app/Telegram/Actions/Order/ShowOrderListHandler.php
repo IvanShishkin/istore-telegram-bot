@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Telegram\Actions\Order;
@@ -65,7 +66,7 @@ final class ShowOrderListHandler
                     $message .= PHP_EOL . $enumCase->icon() . ' <b>' . $enumCase->label() . '</b>' . PHP_EOL . PHP_EOL;
 
                     foreach ($orderStatusGroup as $orderItem) {
-                        $message .= '<b>Заказ №'. $orderItem['id'] . ' от ' . $orderItem['created_at'] . '</b>' . PHP_EOL;
+                        $message .= '<b>Заказ №' . $orderItem['id'] . ' от ' . $orderItem['created_at'] . '</b>' . PHP_EOL;
 
                         $message .= 'товар: ' . $orderItem['product_name'] . PHP_EOL;
                         $message .= 'цена: ' . $orderItem['price'] . '💎' . PHP_EOL . PHP_EOL;

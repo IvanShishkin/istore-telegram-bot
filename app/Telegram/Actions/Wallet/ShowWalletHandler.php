@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Telegram\Actions\Wallet;
@@ -35,7 +36,6 @@ class ShowWalletHandler
                     $operationIcon = ($logRecord->operation === WalletLogOperationEnum::INCREASE) ? '🟩 +' : '🟥 -' ;
                     $comment = ($logRecord->comment) ? " ($logRecord->comment)" : '';
                     $walletLogsMessage .= $logRecord->created_at . ' ' . $operationIcon . ' ' .  $logRecord->value . $comment . PHP_EOL;
-
                 }
             } else {
                 $walletLogsMessage = 'Нет операций';
@@ -67,7 +67,6 @@ class ShowWalletHandler
             );
 
             $bot->deleteMessage($bot->chatId(), $bot->messageId());
-
         } catch (WalletNotExistsException $e) {
             $bot->sendMessage('Ошибка ' . $e->getMessage());
         }

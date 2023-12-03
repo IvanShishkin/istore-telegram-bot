@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Wallets\Services;
@@ -28,9 +29,9 @@ final class StoreWalletService
      */
     public function getWalletData(): WalletDto
     {
-       $wallet = $this->find();
+        $wallet = $this->find();
 
-       return $this->makeDto($wallet);
+        return $this->makeDto($wallet);
     }
 
     /**

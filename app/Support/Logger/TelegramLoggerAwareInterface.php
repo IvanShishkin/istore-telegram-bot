@@ -6,5 +6,4 @@ use Psr\Log\LoggerAwareInterface;
 
 interface TelegramLoggerAwareInterface extends LoggerAwareInterface
 {
-
 }

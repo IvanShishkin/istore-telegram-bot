@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Store\Services;
@@ -14,7 +15,6 @@ use Illuminate\Support\Collection;
 
 class OrderService
 {
-
     /**
      * @param UserDto $userDto
      * @param ProductDto $productDto
@@ -26,8 +26,7 @@ class OrderService
         UserDto $userDto,
         ProductDto $productDto,
         string $transactionId
-    ): OrderDto
-    {
+    ): OrderDto {
         $model = Order::create([
             'user_id' => $userDto->id,
             'status' => OrderStatusEnum::NEW,

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Telegram\Actions\Common;
@@ -24,8 +25,7 @@ final class RegistrationConfirmHandler
         $value,
         UserAuthService $authUserService,
         UserService $userService
-    ): void
-    {
+    ): void {
         $logger = Log::channel('telegram');
 
         if ($userService->existsByExternalId($bot->userId())) {
@@ -49,7 +49,6 @@ final class RegistrationConfirmHandler
             ]);
 
             $bot->sendMessage($exception->getMessage());
-
         } catch (\Throwable $exception) {
             $errorCode = Utils::errorInitializationCode();
 
