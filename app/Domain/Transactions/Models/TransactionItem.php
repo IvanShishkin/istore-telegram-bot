@@ -32,6 +32,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|TransactionItem whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TransactionItem whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TransactionItem whereWalletNumber($value)
+ * @property-read UserWalletModel|null $userWallet
+ * @method static \Database\Factories\TransactionItemFactory factory($count = null, $state = [])
  * @mixin \Eloquent
  */
 class TransactionItem extends Model

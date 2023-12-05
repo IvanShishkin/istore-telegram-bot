@@ -24,8 +24,11 @@ Route::any('/regUser', function (\App\Domain\User\Services\UserAuthService $serv
     $service->registrationConfirmation('5HdQQpWz');
 });
 
-Route::any('test2', function (\App\Domain\Transactions\Services\TerminateService $service) {
-    $list = $service->exec();
+Route::any('test2', function (\App\Domain\Сurrency\Payments\PaymentService $service) {
+    $list = $service->create(new \App\Domain\Сurrency\Payments\Dto\CreatePaymentDto(
+        transactionId: '123',
+        amount: 1000
+    ));
     dd($list);
 });
 

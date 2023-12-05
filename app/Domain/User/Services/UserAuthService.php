@@ -10,7 +10,7 @@ use App\Domain\User\Exception\AlreadyExistsException;
 use App\Domain\User\Exception\RegistrationConfirmException;
 use App\Domain\User\Exception\UserNotFoundException;
 use App\Domain\User\Models\User;
-use App\Events\RegistrationConfirmEvent;
+use App\Domain\Wallets\Events\RegistrationConfirmEvent;
 use Illuminate\Support\Facades\Auth;
 use Spatie\LaravelData\Exceptions\InvalidDataClass;
 

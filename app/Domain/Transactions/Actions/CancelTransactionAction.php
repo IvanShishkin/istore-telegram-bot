@@ -28,7 +28,7 @@ final class CancelTransactionAction
      * @throws InitializationException
      * @throws \Throwable
      */
-    public function execute(string $transactionId): void
+    public function execute(string $transactionId, ?string $comment = null): void
     {
         try {
             \DB::beginTransaction();
@@ -36,8 +36,9 @@ final class CancelTransactionAction
             $transactionDto = $this->service->cancel($transactionId);
 
             $this->balanceService->increase(
-                $transactionDto->getFrom(),
-                $transactionDto->getValue()
+                wallet: $transactionDto->getFrom(),
+                value: $transactionDto->getValue(),
+                comment: $comment
             );
 
             \DB::commit();

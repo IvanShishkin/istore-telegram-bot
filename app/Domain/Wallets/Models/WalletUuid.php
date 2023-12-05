@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|WalletUuid whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|WalletUuid whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|WalletUuid whereUuid($value)
+ * @method static \Database\Factories\WalletUuidFactory factory($count = null, $state = [])
  * @mixin \Eloquent
  */
 class WalletUuid extends Model

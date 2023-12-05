@@ -12,6 +12,7 @@ use App\Support\Logger\TransactionLoggerInterface;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 use SergiX44\Nutgram\Nutgram;
+use YooKassa\Client;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,16 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(Nutgram::class, fn() => new Nutgram(config('telegram.bot_token')));
+
+        $this->app->bind(Client::class, function () {
+            $client = new Client();
+            $client->setAuth(
+                config('payment.yookassa.shop'),
+                config('payment.yookassa.token')
+            );
+
+            return $client;
+        });
 
         $this->setLoggers();
     }
@@ -51,5 +62,7 @@ class AppServiceProvider extends ServiceProvider
             TransactionLoggerInterface::class,
             fn(TransactionLoggerInterface $resolve) => $resolve->setLogger(Log::channel('transaction'))
         );
+
+
     }
 }

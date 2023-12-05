@@ -16,7 +16,8 @@
         "laravel/tinker": "^2.8",
         "nutgram/laravel": "^1.2",
         "nutgram/nutgram": "^4.11",
-        "spatie/laravel-data": "^3.9"
+        "spatie/laravel-data": "^3.9",
+        "yoomoney/yookassa-sdk-php": "^3.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",

@@ -33,6 +33,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereTransactionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
+ * @property-read User $customer
+ * @property-read Product|null $product
+ * @method static \Database\Factories\OrderFactory factory($count = null, $state = [])
  * @mixin \Eloquent
  */
 class Order extends Model

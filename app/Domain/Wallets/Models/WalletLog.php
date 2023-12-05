@@ -24,6 +24,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|WalletLog whereOperation($value)
  * @method static \Illuminate\Database\Eloquent\Builder|WalletLog whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|WalletLog whereValue($value)
+ * @property int $id
+ * @property string|null $comment
+ * @method static \Database\Factories\WalletLogFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|WalletLog whereComment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|WalletLog whereId($value)
  * @mixin \Eloquent
  */
 class WalletLog extends Model

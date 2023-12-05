@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Domain\Wallets\Actions\AccrualWalletAction;
 use App\Domain\Wallets\Models\UserWalletModel;
 use App\Domain\Wallets\Services\ChangeBalanceService;
 use App\Domain\Wallets\UserWallet;
@@ -63,13 +64,12 @@ class WalletResource extends Resource
                     ->action(function (
                         array $data,
                         UserWalletModel $record,
-                        ChangeBalanceService $balanceService
+                        AccrualWalletAction $accrualWalletAction
                     ): void {
                         $incValue = $data['balance_value'];
                         $comment = $data['comment'];
                         try {
-                            $userWallet = new UserWallet($record->number);
-                            $balanceService->increase($userWallet, $incValue, $comment);
+                            $accrualWalletAction->execute($record->number, $incValue, $comment);
                         } catch (\Exception $exception) {
                             Notification::make('error_increase_balance')
                                 ->title('Ошибка')

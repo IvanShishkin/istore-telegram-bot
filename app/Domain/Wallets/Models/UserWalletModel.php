@@ -27,6 +27,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $holder_id
  * @method static \Illuminate\Database\Eloquent\Builder|UserWalletModel whereHolderId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserWalletModel whereNumber($value)
+ * @property-read User $holder
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Domain\Wallets\Models\WalletLog> $logs
+ * @property-read int|null $logs_count
+ * @method static \Database\Factories\UserWalletFactory factory($count = null, $state = [])
  * @mixin \Eloquent
  */
 class UserWalletModel extends Model

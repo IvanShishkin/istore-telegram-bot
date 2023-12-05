@@ -29,7 +29,12 @@ final class CancelOrderAction
 
             $orderData = $this->orderStatusService->cancel($orderId);
 
-            $this->cancelTransactionAction->execute($orderData->getTransactionId());
+            $comment = "Возврат за отмену заказа №{$orderData->getId()}";
+
+            $this->cancelTransactionAction->execute(
+                $orderData->getTransactionId(),
+                $comment
+            );
 
             DB::commit();
 

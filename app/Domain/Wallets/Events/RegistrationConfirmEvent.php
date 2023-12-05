@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace App\Domain\Wallets\Events;
 
 use App\Domain\User\Dto\UserDto;
 use Illuminate\Foundation\Events\Dispatchable;

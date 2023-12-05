@@ -36,6 +36,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $error_detail
  * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereErrorDetail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereWithError($value)
+ * @property-read \App\Domain\Transactions\Models\TransactionItem|null $items
+ * @method static \Database\Factories\TransactionFactory factory($count = null, $state = [])
  * @mixin \Eloquent
  */
 class Transaction extends Model

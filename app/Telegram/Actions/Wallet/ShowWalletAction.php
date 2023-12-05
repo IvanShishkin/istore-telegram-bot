@@ -34,8 +34,8 @@ class ShowWalletAction
                 $walletLogsMessage = 'Последние 10 операций:' . PHP_EOL . PHP_EOL;
                 foreach ($walletLogs as $logRecord) {
                     $operationIcon = ($logRecord->operation === WalletLogOperationEnum::INCREASE) ? '🟩 +' : '🟥 -' ;
-                    $comment = ($logRecord->comment) ? " ($logRecord->comment)" : '';
-                    $walletLogsMessage .= $logRecord->created_at . ' ' . $operationIcon . ' ' .  $logRecord->value . $comment . PHP_EOL;
+                    $comment = ($logRecord->comment) ? " <i>($logRecord->comment)</i>" : '';
+                    $walletLogsMessage .= $logRecord->created_at->format('d.m.Y H:i') . ' ' . $operationIcon . ' ' .  $logRecord->value . $comment . PHP_EOL;
                 }
             } else {
                 $walletLogsMessage = 'Нет операций';
@@ -67,7 +67,8 @@ class ShowWalletAction
             );
 
             $bot->deleteMessage($bot->chatId(), $bot->messageId());
-        } catch (WalletNotExistsException $e) {
+        } catch (\Throwable $e) {
+
             $bot->sendMessage('Ошибка ' . $e->getMessage());
         }
     }

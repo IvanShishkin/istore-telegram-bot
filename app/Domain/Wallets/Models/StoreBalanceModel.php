@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|StoreBalanceModel whereUpdatedAt($value)
  * @property string $number
  * @method static \Illuminate\Database\Eloquent\Builder|StoreBalanceModel whereNumber($value)
+ * @method static \Database\Factories\StoreBalanceFactory factory($count = null, $state = [])
  * @mixin \Eloquent
  */
 class StoreBalanceModel extends Model
