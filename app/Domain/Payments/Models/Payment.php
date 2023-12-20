@@ -2,6 +2,7 @@
 
 namespace App\Domain\Сurrency\Payments\Models;
 
+use App\Domain\Сurrency\Payments\Enums\PaymentStatusEnum;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -31,5 +32,9 @@ class Payment extends Model
         'amount',
         'status',
         'link',
+    ];
+
+    protected $casts = [
+        'status' => PaymentStatusEnum::class
     ];
 }

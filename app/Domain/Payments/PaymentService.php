@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Сurrency\Payments;
 
 use App\Domain\Сurrency\Payments\Dto\CreatePaymentDto;
+use App\Domain\Сurrency\Payments\Dto\PaymentDto;
 use App\Domain\Сurrency\Payments\Enums\PaymentStatusEnum;
 use App\Domain\Сurrency\Payments\Exceptions\ErrorCreatePaymentException;
 use App\Domain\Сurrency\Payments\Models\Payment;
@@ -73,10 +74,33 @@ final class PaymentService
         }
     }
 
-    public function success($paymentId)
+    public function success(int $paymentId): PaymentDto
     {
-        $payment = Payment::whereId($paymentId)->first();
+        $payment = $this->getModel($paymentId);
 
         $payment->status = PaymentStatusEnum::SUCCESS;
+        $payment->save();
+
+        return self::makeDto($payment);
+    }
+
+    public function cancel($paymentId)
+    {
+        $payment = $this->getModel($paymentId);
+
+        $payment->status = PaymentStatusEnum::CANCEL;
+        $payment->save();
+
+        return self::makeDto($payment);
+    }
+
+    protected function getModel(int $id): ?Payment
+    {
+        return Payment::whereId($id)->lockForUpdate()->first();
+    }
+
+    protected static function makeDto(Payment $payment): PaymentDto
+    {
+        return PaymentDto::from($payment->toArray());
     }
 }
